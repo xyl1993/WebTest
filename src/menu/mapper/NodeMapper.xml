@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="menu.mapper.NodeMapper">
+	<select id="getChildNode" parameterType="map" resultType="menu.model.ChildNodeModel">
+	select a.id,
+			a.parentId,
+			a.text,
+			(
+				case when A.leaf = 1 then true
+				else false
+				end
+			) as leaf,
+			a.modCode,
+			(
+				case when A.isvalid = 1 then true
+				else false
+				end
+			) as isvalid
+	from childNode a
+	</select>
+	<select id="getParentNode" parameterType="map" resultType="menu.model.ParentNodeModel">
+	select a.id,
+			a.text,
+			(
+				case when A.leaf = 1 then true
+				else false
+				end
+			) as leaf,
+			a.modCode,
+			(
+				case when A.isvalid = 1 then true
+				else false
+				end
+			) as isvalid,
+			(
+				case when A.expanded = 1 then true
+				else false
+				end
+			) as expanded,
+			a.power
+	from parentNode a 
+		<where>
+			<if test="power != null and power !=''">
+					AND a.power = #{power}
+			</if>
+		</where>
+	</select>
+</mapper>

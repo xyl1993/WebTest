@@ -1,0 +1,29 @@
+@CHARSET "UTF-8";
+body{
+	padding: 0px;
+	margin: 0px;
+	background-color:  #99BCE8;
+}
+
+.logo{
+	padding-left:30px;
+	font-size:60px;
+	font-family: inherit;
+	font-style:oblique;
+	color:#E3F7FF;
+}
+
+label{
+	float: right;
+	position: relative;
+	top:60px;
+	right: 30px;
+}
+
+.zx{
+	color:#428BCA;
+	cursor:pointer;
+}
+.zx:hover{
+text-decoration: underline;
+}

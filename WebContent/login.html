@@ -1,0 +1,68 @@
+<!DOCTYPE>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>医疗系统登录页面</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+
+<link href="BootStrap/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="reserous/css/login.css" rel="stylesheet">
+</head>
+<body>
+
+	<div class="container">
+		<div class="logo">
+			<label class="control-label">某某医疗管理系统</label>
+		</div>
+		<div class="row">
+			<div class="col-xs-6" id="img_login">
+				<img src="reserous/images/login.jpg" />
+			</div>
+			<div class="col-xs-6">
+				<form class="form-signin" id="form_login">
+
+					<fieldset>
+						<div class="control-group">
+							<label class="control-label" for="inputloginId">用户名：</label>
+							<div class="controls">
+								<input type="text" id="inputloginId" class="form-control"
+									required autofocus>
+							</div>
+						</div>
+						<div class="control-group">
+							<label for="inputPassword">密码：</label> <input type="password"
+								id="inputPassword" class="form-control" placeholder="Password"
+								required>
+						</div>
+						<div class="text-right ">
+							<label class="control-label">还没有帐号,请</label><a onclick="onHrefClick()">注册</a>
+						</div>
+
+						<div class="row text-center">
+							<div class="col-xs-6">
+								<button class="btn btn-primary" type="button"
+									onclick="onLoginBtn()">登录</button>
+							</div>
+							<div class="col-xs-6">
+								<button id="resetBtn" class="btn btn-primary" type="reset"
+									onclick="onReset()">重置</button>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+
+	</div>
+	<!-- /container -->
+	<script type="text/javascript" src="BootStrap/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="ext-4.2/ext-all.js"></script>
+	<script type="text/javascript" src="ext-4.2/locale/ext-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="ext-gantt/gnt-all.js"></script>
+	<script type="text/javascript" src="ext-gantt/gnt-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="BootStrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="reserous/js/login.js"></script>
+</body>
+</html>

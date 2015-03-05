@@ -1,0 +1,71 @@
+@CHARSET "UTF-8";
+
+body {
+	padding: 0px;
+	margin: 0px;
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#34AFEB),
+		to(#339900));
+	/* Webkit: Safari 5.1+, Chrome 10+ */
+	background: -webkit-linear-gradient(top, #34AFEB, #E5EDED);
+	/* Firefox 3.6+ */
+	background: -moz-linear-gradient(top, #34AFEB, #E5EDED);
+	/* Opera 11.10+ */
+	background: -o-linear-gradient(top, #34AFEB, #E5EDED);
+	/* IE 10 */
+	background: -ms-linear-gradient(top, #34AFEB, #E5EDED);
+	/* IE < 10 */
+	/* 注意：这一行必须写在最后 */
+
+}
+
+div{
+	/*border:1px solid #ffffff;*/
+}
+
+.logo{
+	font-size:60px;
+	font-family: inherit;
+	font-style:oblique;
+	color:#E3F7FF;
+	position: absolute;
+	padding-top:5%;
+	float:right;
+	right: 250px;
+}
+
+.form-signin {
+	max-width: 280px;
+	width: 280px;
+	padding-top: 40px;
+	margin: 0 auto;
+}
+
+.row {
+	position: relative;
+	top: 60%;
+	transform: translateY(60%);
+}
+
+#img_login {
+	text-align: center;
+}
+
+#form_login {
+	
+}
+
+.form-signin .text-right{
+	padding-top: 40px;
+}
+
+.btn{
+	align: center;
+}
+
+.form-signin .control-group{
+	padding-top: 10px;
+}
+
+button{
+	width: 100px;
+}

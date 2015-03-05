@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user.mapper.UserInfoMapper">
+	<select id="getUserInfor" parameterType="map" resultType="user.model.UserModel">
+	select a.id,
+			a.login_id,
+			a.login_name,
+			a.login_pwd,
+			a.phone,
+			a.email,
+			c.name as sex,
+			d.name as org_id,
+			a.create_time,
+			a.modify_time
+	from user_info a 
+	left join code c on c.code=a.sex and c.type_code='sex_code'
+	left join code d on d.code=a.org_id and d.type_code='position_code' 
+	<where>
+		a.login_id !='admin'
+	</where>
+	ORDER BY a.create_time DESC
+	</select>
+	<insert id="doAddUser" parameterType="map">
+		insert into user_info
+		(
+			id,
+			login_id,
+			login_name,
+			login_pwd,
+			phone,
+			email,
+			sex,
+			org_id,
+			create_time,
+			modify_time
+		) values(
+			#{id},
+			#{login_id},
+			#{login_name},
+			#{login_pwd},
+			#{phone},
+			#{email},
+			#{sex},
+			#{org_id},
+			#{create_time},
+			#{modify_time}
+		)
+	</insert>
+	<delete id="doDelUser" parameterType="string">
+		delete from user_info where id=#{id}
+	</delete>
+	<update id="doUpdateUser" parameterType="map">
+		update user_info set
+			login_id = #{login_id},
+			login_name = #{login_name},
+			login_pwd = #{login_pwd},
+			phone = #{phone},
+			email = #{email},
+			sex = #{sex},
+			org_id = #{org_id},
+			modify_time = #{modify_time}
+			where id=#{id}
+	</update>
+</mapper>

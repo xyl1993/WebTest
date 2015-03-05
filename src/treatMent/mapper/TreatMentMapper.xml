@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="treatMent.mapper.TreatMentMapper">
+	<select id="getTreatMentInfo" parameterType="map" resultType="treatMent.model.TreatMentModel">
+	select 	a.id,
+			a.name,
+			a.code,
+			a.phone,
+			c.name as sex,
+			b.login_name as user,
+			a.auditorName,
+			a.create_name,
+			a.modify_time,
+			a.create_time,
+			d.name as state,
+			a.remarks
+	from register a 
+	left join code c on c.code=a.sex_id and c.type_code='sex_code'
+	left join user_info b on b.id=a.user_id
+	left join code d on d.code=a.state and d.type_code='state'
+		<where>
+		a.state != 's_1'
+			<if test="login_name!=null and login_name!='' ">
+			and b.login_name=#{login_name}
+			</if>
+		</where>
+	ORDER BY a.create_time DESC
+	
+	</select>
+		
+	<update id="doUpdateMedicine" parameterType="map">
+		update register set
+			auditorName = #{auditorName},
+			modify_time = #{modify_time},
+			state = #{state},
+			remarks = #{remarks}
+			where id=#{id}
+	</update>
+	
+	<insert id="doSaveList" parameterType="map">
+		insert into brqub
+		(
+			id,
+			medicine_id,
+			medicine_price,
+			quence,
+			remarks,
+			register_id,
+			allPrice
+		) values(
+			#{id},
+			#{medicine},
+			#{medicine_price},
+			#{quence},
+			#{qyRemarks},
+			#{register},
+			#{allPrice}
+		)
+	</insert>
+	<update id="doUpdateList" parameterType="map">
+		update brqub set
+			medicine_id = #{medicine},
+			quence = #{quence},
+			remarks = #{qyRemarks},
+			allPrice = #{allPrice}
+			where id=#{id}
+	</update>
+	
+	<select id="isExtjs" parameterType="map" resultType="int">
+		select count(*) from brqub
+		<where>
+			<if test="id != null and id !=''">
+					AND id = #{id}
+			</if>
+		</where>
+	</select>
+	
+	<delete id="doDelList" parameterType="string">
+		delete from brqub where id=#{id}
+	</delete>
+</mapper>

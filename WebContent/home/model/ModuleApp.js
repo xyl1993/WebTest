@@ -1,0 +1,12 @@
+Ext.define('keyi.model.ModuleApp',{
+	extend:'Ext.data.Model',
+	fields:[
+        {name:'id',type:'string'},
+        {name:'parentId',type:'string'},
+        {name:'modCode',type:'string'},
+        {name:'text',type:'string'},
+        {name:'expanded',type:'boolean'},
+        {name:'leaf',type:'boolean'},
+        {name:'isvalid',type:'boolean'}
+	]
+});

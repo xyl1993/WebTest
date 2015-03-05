@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:task="http://www.springframework.org/schema/task"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+        
+    <!--自动扫描该包下所有的组件,根据标注处理-->
+    <!-- enable autowire -->
+    <context:annotation-config /> 
+    
+    <!-- 开启定时器 -->
+    <task:annotation-driven/>
+        
+    <context:component-scan base-package="gp.util.web,gp.platform,gp.ext" /> 
+  
+    <!-- Configures the @Controller programming model 必须加上这个，不然请求controller时会出现no mapping url错误-->
+    <mvc:annotation-driven />
+    
+    <bean id="dataSource" class="gp.platform.db.MultiDataSource"/>   
+       
+    <!-- define the SqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="typeAliasesPackage" value="gp.platform,gp.ext" />
+        <!-- 设定分页插件 -->
+        <property name="plugins">
+            <bean class="gp.util.db.PagingInterceptor" />
+        </property>
+        <!-- 可以单独指定mybatis的配置文件，或者写在本文件里面。 用下面的自动扫描装配(推荐)或者单独mapper 
+        <property name="configLocation" value="classpath:config/mybatis-config.xml" />
+        -->
+    </bean>
+    
+    <!-- scan for mappers and let them be autowired -->
+    <!-- 自动扫描并组装MyBatis的映射文件和接口-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="gp.platform.data,gp.ext.*.data" />
+    </bean>
+
+    <!-- enable transaction demarcation with annotations -->
+    <tx:annotation-driven transaction-manager="transactionManager"  />
+    <!-- transaction manager, use JtaTransactionManager for global tx -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    
+    <!-- AOP 相关 -->
+    <bean id="mapperInterceptor" class="gp.util.db.MapperInterceptor">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <aop:config>
+    <aop:aspect ref="mapperInterceptor">
+    <aop:pointcut id="mapperPointcut" expression="execution(public * gp.*..data.*.*(..))" />
+    <aop:around method="methodRound" pointcut-ref="mapperPointcut" />
+    </aop:aspect>
+    </aop:config> 
+
+</beans>

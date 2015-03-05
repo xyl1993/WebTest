@@ -1,0 +1,25 @@
+@CHARSET "UTF-8";
+.page_addIcon {
+    background:url(../ext_icons/page_add.png) no-repeat !important;
+ }
+ .page_edit_1Icon {
+    background:url(../ext_icons/page_edit_1.png) no-repeat !important;
+ }
+ .page_delIcon {
+    background:url(../ext_icons/page_del.png) no-repeat !important;
+ }
+ .page_refreshIcon {
+    background:url(../ext_icons/page_refresh.png) no-repeat !important;
+ }
+ .page_saveIcon {
+ 	background:url(../ext_icons/page_save.png) no-repeat !important;
+ }
+ .page_addIcon {
+    background:url(../ext_icons/page_add.png) no-repeat !important;
+ }
+ .page_delIcon {
+    background:url(../ext_icons/page_del.png) no-repeat !important;
+ }
+ .queryIcon {
+	background-image:url(../ext_icons/zoom.png) !important;
+ }

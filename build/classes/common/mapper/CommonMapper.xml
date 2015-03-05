@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="common.mapper.CommonMapper">
+	<select id="getCommonList" parameterType="map" resultType="common.model.CommonModel">
+		select 
+			a.id,
+			a.type_code,
+			a.code,
+			a.name from code a
+		<where>
+			<if test="type_code != null and type_code !=''">
+					AND a.type_code = #{type_code}
+			</if>
+			<if test="code != null and code !=''">
+					AND a.code = #{code}
+			</if>
+			<if test="name != null and name !=''">
+					AND a.name = #{name}
+			</if>
+		</where>
+	</select>
+	<select id="getDbDate" resultType="date">
+		select now()
+	</select>
+	<select id="isExtjs" parameterType="map" resultType="int">
+		select count(*) from user_info
+		<where>
+			<if test="id != null and id !=''">
+					AND id = #{id}
+			</if>
+		</where>
+		
+	</select>
+</mapper>

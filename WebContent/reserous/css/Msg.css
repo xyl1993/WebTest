@@ -1,0 +1,34 @@
+@CHARSET "UTF-8";
+
+#gymsg-div {
+    position:absolute;
+    left: 90%;
+    top: 90%;
+    width:128px;
+    z-index:20000;
+}
+#gymsg-div .gymsg {
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    background: #F6F6F6;
+    border: 2px solid #ccc;
+    margin-top: 2px;
+    padding: 5px 5px;
+    color: #555;
+}
+#gymsg-div .gymsg h3 {
+    margin: 0 0 4px;
+    font-weight: bold;
+    font-family: 楷体;
+    font-size: 12px;
+}
+#gymsg-div .gymsg p {
+    margin: 0;
+    font-size: 11px;
+}
+
+#gymsg-div .gyinput {
+	width: 114px;
+	border: 1px solid #ccc;
+	background: white;
+}

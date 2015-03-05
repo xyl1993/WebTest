@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="register.mapper.RegisterMapper">
+	<select id="getRegisterInfo" parameterType="map" resultType="register.model.RegisterModel">
+	select 	a.id,
+			a.name,
+			a.code,
+			a.phone,
+			c.name as sex,
+			b.login_name as user,
+			a.auditorName,
+			a.create_name,
+			a.modify_time,
+			a.create_time,
+			d.name as state
+	from register a 
+	left join code c on c.code=a.sex_id and c.type_code='sex_code'
+	left join user_info b on b.id=a.user_id
+	left join code d on d.code=a.state and d.type_code='state'
+	ORDER BY a.create_time DESC
+	</select>
+	<delete id="doDelRegister" parameterType="string">
+		delete from register where id=#{id}
+	</delete>
+	<update id="doUpdateRegister" parameterType="map">
+		update register set
+			name = #{name},
+			phone = #{phone},
+			sex_id = #{sex},
+			user_id = #{user},
+			auditorName = #{auditorName},
+			modify_time = #{modify_time},
+			state = #{state}
+			where id=#{id}
+	</update>
+	<insert id="doAddRegister" parameterType="map">
+		insert into register
+		(
+			id,
+			code,
+			name,
+			phone,
+			sex_id,
+			user_id,
+			auditorName,
+			modify_time,
+			create_time,
+			state,
+			sf_state,
+			qy_state,
+			create_name
+		) values(
+			#{id},
+			#{code},
+			#{name},
+			#{phone},
+			#{sex},
+			#{user},
+			#{auditorName},
+			#{modify_time},
+			#{create_time},
+			's_2',
+			'N',
+			'N',
+			#{create_name}
+		)
+	</insert>
+	<select id="isExtjs" parameterType="map" resultType="int">
+		select count(*) from register
+		<where>
+			<if test="id != null and id !=''">
+					AND id = #{id}
+			</if>
+		</where>
+		
+	</select>
+</mapper>

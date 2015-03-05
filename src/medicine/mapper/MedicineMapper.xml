@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="medicine.mapper.MedicineMapper">
+	<select id="getMedicineInfo" parameterType="map" resultType="medicine.model.MedicineModel">
+	select 	a.id,
+			a.name as medicineName,
+			a.price,
+			a.quence,
+			a.remarks as medicineRemarks,
+			a.auditorName,
+			a.create_name,
+			a.modify_time,
+			a.create_time
+	from medicineCorp a 
+	ORDER BY a.create_time DESC
+	</select>
+	<select id="getQyInfo" parameterType="map" resultType="medicine.model.QyModel">
+	select 	a.id,
+		    a.medicine_id as medicine,
+		    a.medicine_price,
+		    a.quence,
+		    a.register_id as register,
+		 	a.allPrice,
+		    a.remarks as qyRemarks
+	from brqub a 
+		<where>
+		1=1
+			<if test="register_id!=null and register_id!='' ">
+			and a.register_id=#{register_id}
+			</if>
+		</where>
+	</select>
+
+</mapper>

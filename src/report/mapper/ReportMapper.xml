@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="report.mapper.ReportMapper">
+	<select id="getHzReport" parameterType="map" resultType="report.model.ReportModel">
+	select 	a.id,
+			a.name,
+			a.code,
+			a.phone,
+			c.name as sex,
+			b.login_name as user,
+		 	(
+				case when 	a.state='s_1' then '已就诊' else '未就诊' end 
+			) as state,
+			(
+				case when a.sf_state='T' then '已收费' else '未收费' end
+			) as sf_state,
+			(
+				case when a.qy_state='T' then '已取药' else '未取药' end
+			) as qy_state,
+			a.remarks
+	from register a 
+	left join code c on c.code=a.sex_id and c.type_code='sex_code'
+	left join user_info b on b.id=a.user_id
+	left join code d on d.code=a.state and d.type_code='state'
+		<where>
+		1=1
+			<if test="name!= null and name!= '' ">
+			and a.name  like CONCAT(CONCAT('%', #{name}),'%')  
+			</if>
+			<if test="userId!= null and userId!= '' ">
+			and b.id  = #{userId}
+			</if>
+			<if test="state!= null and state!= '' ">
+			and a.state=#{state}
+			</if>
+			<if test="sf_state!= null and sf_state!= '' ">
+			and a.sf_state=#{sf_state}
+			</if>
+			<if test="qy_state!= null and qy_state!= '' ">
+			and a.qy_state=#{qy_state}
+			</if>
+		</where>
+	ORDER BY a.create_time DESC
+	</select>
+</mapper>
